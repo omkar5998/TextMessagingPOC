@@ -49,7 +49,7 @@ public class SMSController {
 	private String getTimeStamp() {
 		return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 	}
-	
+
 	@PostMapping("/sendSMS")
 	public void sendSMS(@RequestBody SMS sms) {
 		service.sendSMS(sms);

@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
-import java.net.URI;
-
 @Component
 public class SMSService {
 
@@ -21,7 +19,7 @@ public class SMSService {
 
 	@Value("${twilio.phone.number}")
 	private String FROM_NUMBER;
-	
+
 	@Value("${messaging.service.sid}")
 	private String MESSAGING_SERVICE_SID;
 
@@ -38,10 +36,8 @@ public class SMSService {
 	}
 
 	public void sendSMS(SMS sms) {
-		Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
-        Message message = Message.creator( 
-                new com.twilio.type.PhoneNumber(sms.getSendTo()),   
-                MESSAGING_SERVICE_SID,sms.getMessage())      
-            .create(); 
+		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		Message.creator(new com.twilio.type.PhoneNumber(sms.getSendTo()), MESSAGING_SERVICE_SID, sms.getMessage())
+				.create();
 	}
 }

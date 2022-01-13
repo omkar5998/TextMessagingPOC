@@ -21,6 +21,9 @@ public class SMSService {
 
 	@Value("${twilio.phone.number}")
 	private String FROM_NUMBER;
+	
+	@Value("${messaging.service.sid}")
+	private String MESSAGING_SERVICE_SID;
 
 	public void send(SMS sms) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -32,5 +35,13 @@ public class SMSService {
 	}
 
 	public void receive(MultiValueMap<String, String> smscallback) {
+	}
+
+	public void sendSMS(SMS sms) {
+		Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
+        Message message = Message.creator( 
+                new com.twilio.type.PhoneNumber(sms.getSendTo()),   
+                MESSAGING_SERVICE_SID,sms.getMessage())      
+            .create(); 
 	}
 }
